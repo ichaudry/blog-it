@@ -39,8 +39,22 @@ User.prototype.validate = function() {
 
 }
 
+
+User.prototype.login = function() {
+    //Validate data  
+    this.cleanUp() 
+    userCollection.findOne({username: this.data.username} , (err , attemptedUser) => {
+        //Check if user name was found and password is a match
+        if(attemptedUser && attemptedUser.password == this.data.password){
+            console.log("Congrats")
+        } else {
+            console.log("Invalid username/password")
+        }
+    })
+}
+
 User.prototype.register = function() {
-    //Validate user data
+    //Validate data
     this.cleanUp()
     this.validate()
 
@@ -48,7 +62,7 @@ User.prototype.register = function() {
     if (!this.errors.length){
         userCollection.insertOne(this.data)
     }
-
 }
+
 
 module.exports = User 
