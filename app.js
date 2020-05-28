@@ -19,5 +19,5 @@ app.set('view engine' , 'ejs')
 //Set base router
 app.use('/' , router)
 
-
-app.listen(3000)
+//Export express app
+module.exports = app
