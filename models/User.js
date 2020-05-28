@@ -1,5 +1,6 @@
 const userCollection = require('../db').collection("users")
 const validator = require("validator")
+const bcrypt = require('bcryptjs')
 
 
 let User = function(data) {
@@ -35,7 +36,7 @@ User.prototype.validate = function() {
     //Password should be atleat 12 characters and max 100.
     if(this.data.password == ""){this.errors.push("You must provide a password")}
     if(this.data.password.length > 0 && this.data.password.length < 12){this.errors.push("The password must be atleast 12 characters.")}
-    if(this.data.password.length > 100){this.errors.push("The password must not exceed 100 characters")}
+    if(this.data.password.length > 50){this.errors.push("The password must not exceed 50 characters")}
 
 }
 
@@ -46,7 +47,7 @@ User.prototype.login = function() {
         this.cleanUp() 
         userCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
             //Check if user name was found and password is a match
-            if(attemptedUser && attemptedUser.password == this.data.password){
+            if(attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)){
                 resolve("Congrats!")
             } else {
                 reject("Invalid username/password")
@@ -65,6 +66,10 @@ User.prototype.register = function() {
 
     //Save user to db if no errors
     if (!this.errors.length){
+        //Hash user password
+        let salt = bcrypt.genSaltSync(10)
+        this.data.password = bcrypt.hashSync(this.data.password , salt)
+
         userCollection.insertOne(this.data)
     }
 }
