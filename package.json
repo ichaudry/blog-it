@@ -1,0 +1,26 @@
+{
+  "name": "complex-app-temp",
+  "version": "1.0.0",
+  "description": "Full Stack Node Web Blogging Application. (Description and Name are temp)",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ichaudry/complex-app-temp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ichaudry/complex-app-temp/issues"
+  },
+  "homepage": "https://github.com/ichaudry/complex-app-temp#readme",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
