@@ -40,18 +40,23 @@ User.prototype.validate = function() {
 }
 
 
-User.prototype.login = function(callback) {
-    //Validate data  
-    this.cleanUp() 
-    userCollection.findOne({username: this.data.username} , (err , attemptedUser) => {
-        //Check if user name was found and password is a match
-        if(attemptedUser && attemptedUser.password == this.data.password){
-            callback("Congrats!")
-        } else {
-            callback("Invalid username/password")
-        }
+User.prototype.login = function() {
+    return new Promise((resolve, reject)=>{
+        //Validate data  
+        this.cleanUp() 
+        userCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
+            //Check if user name was found and password is a match
+            if(attemptedUser && attemptedUser.password == this.data.password){
+                resolve("Congrats!")
+            } else {
+                reject("Invalid username/password")
+            }
+        }).catch(()=>{
+            reject("Please try again later.")
+        })
     })
 }
+
 
 User.prototype.register = function() {
     //Validate data
