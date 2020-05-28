@@ -40,15 +40,15 @@ User.prototype.validate = function() {
 }
 
 
-User.prototype.login = function() {
+User.prototype.login = function(callback) {
     //Validate data  
     this.cleanUp() 
     userCollection.findOne({username: this.data.username} , (err , attemptedUser) => {
         //Check if user name was found and password is a match
         if(attemptedUser && attemptedUser.password == this.data.password){
-            console.log("Congrats")
+            callback("Congrats!")
         } else {
-            console.log("Invalid username/password")
+            callback("Invalid username/password")
         }
     })
 }
