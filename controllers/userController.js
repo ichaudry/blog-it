@@ -44,8 +44,6 @@ exports.register = function(req , res) {
             res.redirect('/')
         })
     })
-
-
 }
 
 exports.home = function(req , res) {

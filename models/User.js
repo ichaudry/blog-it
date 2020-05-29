@@ -68,6 +68,7 @@ User.prototype.login = function() {
         userCollection.findOne({username: this.data.username}).then((attemptedUser)=>{
             //Check if user name was found and password is a match
             if(attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)){
+                this.data= attemptedUser
                 this.getAvatar()
                 resolve("Congrats!")
             } else {
