@@ -1,12 +1,10 @@
-const userCollection = require('../db').collection("users")
+const userCollection = require('../db').db().collection("users")
 const validator = require("validator")
 const bcrypt = require('bcryptjs')
-
 
 let User = function(data) {
     this.data = data
     this.errors = []
-
 }
 
 User.prototype.cleanUp = function() {
