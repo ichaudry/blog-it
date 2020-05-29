@@ -13,3 +13,12 @@ exports.create = function(req, res){
     })
 }
 
+exports.viewSinglePost = async function(req, res){
+    try {
+        let post = await Post.findPostById(req.params.id)
+        res.render('single-post-screen', {post: post})
+    } catch {
+        res.render('404')
+    }
+}
+

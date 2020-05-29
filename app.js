@@ -21,7 +21,6 @@ app.use(function(req, res, next){
     next()
 })
 
-
 const router = require('./router')
 
 //Middleware to parse incoming request bodies

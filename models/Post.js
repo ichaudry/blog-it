@@ -1,12 +1,12 @@
 const postsCollection = require('../db').db().collection("posts")
 const ObjectID = require('mongodb').ObjectID
+const User = require('./User')
 
 let Post= function(data, userid){
     this.data = data
     this.userid = userid
     this.errors = []
 }
-
 
 Post.prototype.cleanUp = function(){
     if(typeof(this.data.title) != "string") {this.data.title = ""}
@@ -48,6 +48,40 @@ Post.prototype.create = function(){
 }
 
 
+Post.findPostById = function(id) {
+    return new Promise(async function (resolve, reject){
+        if(typeof(id) != "string" || !ObjectID.isValid(id)){
+            reject()
+            return
+        }
+        //Find post and look up author
+        let posts = await postsCollection.aggregate([
+            {$match: {_id: new ObjectID(id)}},
+            {$lookup: {from: "users", localField: "author", foreignField: "_id", as: "authorDocument"}},
+            {$project: {
+                title: 1,
+                body: 1,
+                createdDate: 1,
+                author: {$arrayElemAt: ["$authorDocument", 0]}
+            }}
+        ]).toArray()
 
+        //Clean up author property in each post object
+        posts = posts.map((post)=>{
+            post.author = {
+                username: post.author.username,
+                avatar: new User(post.author, true).avatar
+            }
+            return post
+        })
+
+        if(posts.length) {
+            console.log(posts[0])
+            resolve(posts[0])
+        } else {
+            reject()
+        }
+    })
+}
 
 module.exports = Post
