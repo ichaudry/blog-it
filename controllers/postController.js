@@ -24,19 +24,19 @@ exports.viewSinglePost = async function(req, res){
     }
 }
 
-exports.viewEditScreen = async function(req, res){
+exports.viewEditScreen = async function(req, res) {
     try {
-        let post = await Post.findPostById(req.params.id)
-        if(post.authorId == req.visitorId) {
-            res.render('edit-post', {post: post})
-        } else {
-            req.flash("errors", "You do not have permission to perform this action.")
-            req.session.save(()=> res.redirect("/"))
-        }
+      let post = await Post.findPostById(req.params.id, req.visitorId)
+      if (post.isVisitorOwner) {
+        res.render("edit-post", {post: post})
+      } else {
+        req.flash("errors", "You do not have permission to perform that action.")
+        req.session.save(() => res.redirect("/"))
+      }
     } catch {
-        res.render("404")
+      res.render("404")
     }
-}
+  }
 
 exports.edit = function(req, res) {
     let post= new Post(req.body, req.visitorId, req.params.id)
@@ -67,3 +67,20 @@ exports.edit = function(req, res) {
     })
 }
 
+exports.delete = function(req, res){
+    Post.delete(req.params.id, req.visitorId).then(()=>{
+        req.flash("success", "Post succesfully deleted.")
+        req.session.save(()=> res.redirect(`/profile/${req.session.user.username}`))
+    }).catch(()=>{
+        req.flash("errors", "You do not have permission to perform that action.")
+        req.session.save(() => res.redirect("/"))
+    })
+}
+
+exports.search = function(req, res){
+    Post.search(req.body.searchTerm).then(posts =>{
+        res.json(posts)
+    }).catch(()=>{
+        res.json([])
+    })
+}
