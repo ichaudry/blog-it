@@ -60,8 +60,11 @@ const server = require('http').createServer(app)
 //Adding socket functionality to server
 const io = require('socket.io')(server)
 
-io.on('connection', function(){
-    console.log("A new user connected")
+io.on('connection', function(socket){
+    socket.on("chatMessageFromBrowser", function(data){
+        //emit message to all connected users
+        io.emit('chatMessageFromServer', {message: data.message})
+    })
 })
 
 //Export express app
