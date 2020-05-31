@@ -40,7 +40,6 @@ npm run test
 
 👤 **Ibraheem Chaudry**
 
-* Website: https://www.linkedin.com/in/ichaudry/
 * Github: [@ichaudry](https://github.com/ichaudry)
 * LinkedIn: [@ichaudry](https://linkedin.com/in/ichaudry)
 
@@ -55,7 +54,7 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2020 [Ibraheem Chaudry](https://github.com/ichaudry).<br />
-This project is [ISC](https://github.com/ichaudry/blog-it/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/ichaudry/blog-it/blob/master/LICENSE) licensed.
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
