@@ -50,7 +50,6 @@ exports.mustBeLoggedIn = function (req, res, next){
     }
 }
 
-
 exports.login = function(req , res) {
     //create new user object
     let user = new User(req.body)
@@ -69,6 +68,17 @@ exports.login = function(req , res) {
         req.session.save(()=>{
             res.redirect('/')
         })
+    })
+}
+
+
+exports.apiLogin = function(req , res) {
+    let user = new User(req.body)
+
+    user.login().then((result)=>{
+        res.json("good job real user")
+    }).catch((err)=>{
+        res.json("wrong data")
     })
 }
 

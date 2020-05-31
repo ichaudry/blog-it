@@ -7,7 +7,11 @@ const csrf = require('csurf')
 const app = express()
 const sanitizeHTML = require('sanitize-html')
 
+//Middleware to parse incoming request bodies
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
+app.use('/api', require('./router-api'))
 
 let sessionOptions = session({
     secret: "JavaScript is so not cool",
@@ -42,10 +46,6 @@ app.use(function(req, res, next){
 })
 
 const router = require('./router')
-
-//Middleware to parse incoming request bodies
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
 
 //Make public accessible
 app.use(express.static('public'))
