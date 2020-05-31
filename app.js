@@ -60,11 +60,26 @@ const server = require('http').createServer(app)
 //Adding socket functionality to server
 const io = require('socket.io')(server)
 
+io.use(function(socket, next){
+    sessionOptions(socket.request, socket.request.res, next)
+})
+
 io.on('connection', function(socket){
-    socket.on("chatMessageFromBrowser", function(data){
-        //emit message to all connected users
-        io.emit('chatMessageFromServer', {message: data.message})
+   if(socket.request.session.user){
+        let user = socket.request.session.user
+
+        socket.emit('welcome', {username: user.username, avatar: user.avatar})
+
+        socket.on("chatMessageFromBrowser", function(data){
+        //emit message to all connected users except the user who sent the message
+        socket.broadcast.emit('chatMessageFromServer', {
+            message: sanitizeHTML(data.message, {
+                allowedTags: [],
+                allowedAttributes: {}
+            }), 
+            username: user.username, avatar: user.avatar})
     })
+   }
 })
 
 //Export express app
