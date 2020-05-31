@@ -6,6 +6,7 @@ const markdown = require('marked')
 const app = express()
 const sanitizeHTML = require('sanitize-html')
 
+
 let sessionOptions = session({
     secret: "JavaScript is so not cool",
     store: new MongoStore({client: require('./db')}),
@@ -54,5 +55,14 @@ app.set('view engine' , 'ejs')
 //Set base router
 app.use('/' , router)
 
+const server = require('http').createServer(app)
+
+//Adding socket functionality to server
+const io = require('socket.io')(server)
+
+io.on('connection', function(){
+    console.log("A new user connected")
+})
+
 //Export express app
-module.exports = app
+module.exports = server
