@@ -16,7 +16,7 @@
 
 ### 🏠 [Homepage](https://github.com/ichaudry/blog-it#readme)
 
-### ✨ [Demo](url goes here)
+### ✨ [Demo](https://blog-it-nodejs.herokuapp.com/profile/ibraheem)
 
 ## Install
 
