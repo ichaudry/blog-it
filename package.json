@@ -1,7 +1,7 @@
 {
-  "name": "complex-app-temp",
+  "name": "Blog-It",
   "version": "1.0.0",
-  "description": "Full Stack Node Web Blogging Application. (Description and Name are temp)",
+  "description": "Full Stack Node Web Blogging Application.",
   "main": "app.js",
   "scripts": {
     "start": "nodemon db --ignore frontend-js --ignore public/ & webpack --watch",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ichaudry/complex-app-temp.git"
+    "url": "git+https://github.com/ichaudry/blog-it.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ichaudry/complex-app-temp/issues"
+    "url": "https://github.com/ichaudry/blog-it/issues"
   },
-  "homepage": "https://github.com/ichaudry/complex-app-temp#readme",
+  "homepage": "https://github.com/ichaudry/blog-it#readme",
   "dependencies": {
     "@babel/core": "^7.10.1",
     "@babel/preset-env": "^7.10.1",
