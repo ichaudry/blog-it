@@ -39,7 +39,7 @@
     "mongodb": "^3.5.8",
     "nodemon": "^2.0.4",
     "readme-md-generator": "^1.0.0",
-    "sanitize-html": "^1.25.0",
+    "sanitize-html": "^2.3.2",
     "socket.io": "^2.3.0",
     "validator": "^13.0.0",
     "webpack": "^4.43.0",
